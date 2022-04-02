@@ -3,7 +3,7 @@ import './App.css';
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import ProfilePage from "./pages/ProfilePage";
-import Footer from "./footer/footer";
+import Footer from "./components/footer/footer";
 import Header from "./components/header/header";
 import LogInPage from "./pages/LogInPage";
 import RegisterPage from "./pages/RegisterPage";
