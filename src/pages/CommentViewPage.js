@@ -72,7 +72,7 @@ const CommentViewPage = () => {
                   <div>
               <div onClick={createComment}>Comment</div>
                   <div className="hideComment" id="hideComment">
-                  <CreateNewComment index={index}/>
+                  <CreateNewComment index={index} setComment={setComments}/>
                   </div>
                   </div>}
 

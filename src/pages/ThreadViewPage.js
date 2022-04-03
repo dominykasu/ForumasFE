@@ -49,9 +49,6 @@ const [getAllTopics, setAllTopics] = useState(null)
         navigate(`/createtopic/${index}`)
     }
 
-    // const [getFavorited, setFavorited] = useState(
-        // JSON.parse(localStorage.favorites).find((x) => x === topic._id),
-    // );
 
     function addToFavorites(topic){
         let oldLiked = JSON.parse(localStorage.getItem('LikedTopic'));
@@ -67,9 +64,8 @@ const [getAllTopics, setAllTopics] = useState(null)
         }
         setCheckStorage(!getCheckStorage)
         localStorage.setItem('LikedTopic', JSON.stringify(oldLiked));
-// setFavorites(JSON.stringify(oldLiked))
-
     }
+
     useEffect(() => {
         setFavorites(JSON.parse(localStorage.LikedTopic))
     },[getCheckStorage])

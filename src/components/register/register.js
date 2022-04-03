@@ -3,10 +3,11 @@ import http from "../../plugins/http";
 import {useRef} from "react";
 import {useState} from "react";
 import './style.css'
+import {useNavigate} from "react-router-dom";
 const Register = () => {
 
     let [errorMessage, setErrorMessage] = useState("");
-
+    const navigate = useNavigate()
     const testEmail = (address) => {
         const regexEmail = new RegExp(/^[\w-\.\_]+@([\w-]+\.)+[\w-]{2,4}$/);
         return regexEmail.test(address);
@@ -19,6 +20,7 @@ const Register = () => {
     };
 
     async function submit() {
+
         const user = {
             email: inputs.email.current.value,
             pass1: inputs.password.current.value,
@@ -49,6 +51,7 @@ const Register = () => {
         } catch (error) {
             console.log(error);
         }
+        navigate("/login")
     }
     return (
         <div className="d-flex flex-column gap-4 mainRegisterDiv">
@@ -67,7 +70,7 @@ const Register = () => {
 
             <div className="d-flex justify-content-center align-items-center text-center gap-2">
 
-                <button className="" onClick={() => submit} >Register</button>
+                <button className="" onClick={() => submit()} >Register</button>
 
             </div>
         </div>

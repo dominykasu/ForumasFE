@@ -4,9 +4,9 @@ import './style.css'
 import MainContext from "../../context/userContext";
 import {useContext} from "react";
 import http from "../../plugins/http";
-import {useNavigate} from "react-router-dom";
 
-const CreateNewComment = ({index}) => {
+
+const CreateNewComment = ({index, setComment}) => {
 
 
     const commentRef = useRef()
@@ -14,14 +14,8 @@ const CreateNewComment = ({index}) => {
     console.log(index)
     const {getUser} = useContext(MainContext)
 
-    const navigate = useNavigate()
 
 
-
-    function submitAndNav() {
-        submitComment()
-        navigateTo()
-    }
 
     async function submitComment(){
 
@@ -34,6 +28,10 @@ const CreateNewComment = ({index}) => {
 
         try {
             const res = await http.post(comment, "postComment");
+            if(res.success){
+                setComment(res.allComments)
+            }
+            console.log(res)
             // if (!res.error) {
             //     setErrorMessage("");
             // } else {
@@ -44,9 +42,7 @@ const CreateNewComment = ({index}) => {
         }
 
     }
-    function navigateTo(){
-        navigate(-1)
-    }
+
 
     return (
         <div className="mainDiv">
@@ -56,7 +52,7 @@ const CreateNewComment = ({index}) => {
                     <input ref={commentRef} className="form-control inputHeight" placeholder="Text"/>
                 </div>
                 <div>
-                    <button onClick={submitAndNav} >Submit Comment</button>
+                    <button onClick={submitComment} >Submit Comment</button>
                 </div>
             </div>
         </div>
