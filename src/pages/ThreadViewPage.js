@@ -9,11 +9,15 @@ import TopicsCard from "../components/topicsCard/topicsCard";
 import {useNavigate} from "react-router-dom";
 import userContext from "../context/userContext";
 import MainContext from "../context/userContext";
+import { BsSuitHeart, BsSuitHeartFill } from 'react-icons/bs';
+
 const ThreadViewPage = () => {
 
     const {getUser} = useContext(MainContext);
     const {index} = useParams()
 const [getAllTopics, setAllTopics] = useState(null)
+    const [getFavorites, setFavorites] = useState()
+    const [getCheckStorage, setCheckStorage] = useState(false)
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -45,6 +49,45 @@ const [getAllTopics, setAllTopics] = useState(null)
         navigate(`/createtopic/${index}`)
     }
 
+    // const [getFavorited, setFavorited] = useState(
+        // JSON.parse(localStorage.favorites).find((x) => x === topic._id),
+    // );
+
+    function addToFavorites(topic){
+        let oldLiked = JSON.parse(localStorage.getItem('LikedTopic'));
+        if(oldLiked === null){
+            oldLiked = []
+        }
+
+        if(oldLiked.find((x) => x._id === topic._id)){
+            const index = oldLiked.indexOf(oldLiked.find((x) => x._id === topic._id))
+            oldLiked.splice(index,1)
+        } else {
+            oldLiked.push(topic)
+        }
+        setCheckStorage(!getCheckStorage)
+        localStorage.setItem('LikedTopic', JSON.stringify(oldLiked));
+// setFavorites(JSON.stringify(oldLiked))
+
+    }
+    useEffect(() => {
+        setFavorites(JSON.parse(localStorage.LikedTopic))
+    },[getCheckStorage])
+
+    // {!getFavorited ? (
+    //     <BsSuitHeart
+    //         className='product-card-favorite-icon'
+    //         onClick={() => setFavoritedStatus(product._id)}
+    //         title='Pridėti prie mėgstamiausių'
+    //         style={{ color: 'black' }}
+    //     />
+    // ) : (
+    //     <BsSuitHeartFill
+    //         className='product-card-favorite-icon'
+    //         onClick={() => setFavoritedStatus(product._id)}
+    //         title='Pašalinti iš mėgstamiausių'
+    //     />
+    // )}
     return (
         <div className="mainDiv">
             <div className="d-flex justify-content-between">
@@ -62,10 +105,16 @@ const [getAllTopics, setAllTopics] = useState(null)
 
             <div>
                 {getAllTopics && getAllTopics.map((x,i)=>
-                    <div key={i} onClick={() => goToTopic(i)}>
+                    <div className="d-flex justify-content-between" key={i} >
+                    <div onClick={() => goToTopic(i)} >
                         <ThreadsCard item={x}/>
                     </div>
+                    <div onClick={() => addToFavorites(x)}>
+                        {getFavorites.find((y) => y._id === x._id) ?  <BsSuitHeartFill/> : <BsSuitHeart/>}
+                    </div>
+                    </div>
                 )}
+
             </div>
         </div>
     );
