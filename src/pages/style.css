@@ -1,0 +1,20 @@
+.mainDiv {
+    width:70vw;
+    height:80vh;
+    margin:auto;
+    overflow: scroll;
+    overflow-x: hidden;
+    background-color: white;
+}
+.createNewTopicDiv {
+    background-color: #2f2f2f;
+    padding:3px;
+}
+.newTopicButtonDiv {
+    color:white;
+    margin:auto;
+    border: 1px solid red;
+}
+.hideComment {
+    display:none;
+}

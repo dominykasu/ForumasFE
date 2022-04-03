@@ -1,0 +1,22 @@
+.mainHeaderDiv {
+    height:10vh;
+    width:auto;
+    margin:auto;
+    background-color: black;
+    color:darkgrey;
+}
+a:link, a:visited {
+    color:darkgrey;
+    text-decoration: none;
+    margin: 5px;
+}
+.mainHeaderDiv a:hover {
+    color: #dadada;
+}
+.registerLink {
+    border:1px solid red;
+    color:red!important;
+    padding: 2px 4px 2px 4px;
+
+}
+

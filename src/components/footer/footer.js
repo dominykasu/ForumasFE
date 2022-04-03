@@ -1,8 +1,8 @@
 import React from 'react';
-
+import './style.css'
 const Footer = () => {
     return (
-        <div>
+        <div className="d-flex justify-content-around mainFooterDiv">
             This is footer
         </div>
     );

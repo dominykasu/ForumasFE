@@ -1,0 +1,10 @@
+.mainTopicsDiv {
+    width:80%;
+    padding-top:2%;
+    padding-bottom: 2%;
+}
+.singleTopicDiv {
+    padding-bottom: 3%;
+    padding-top: 3%;
+    background-color: palegoldenrod;
+}
