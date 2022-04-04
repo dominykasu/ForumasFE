@@ -7,14 +7,21 @@ import CreateNewComment from "../components/createNewComment/createNewComment";
 import {useState} from "react";
 import CommentCard from "../components/commentCard/commentCard";
 import MainContext from "../context/userContext";
-
+import AllTopics from "../components/allTopics/allTopics";
+import Pagination from "../components/pagination/pagination";
+import AllComments from "../components/allComments/allComments";
 const CommentViewPage = () => {
-    const {getUser, getThreadObject} = useContext(MainContext);
-    const [getComments,setComments] = useState(null)
-    const {index} = useParams()
 
+    const {getUser, getThreadObject, setThreadObject} = useContext(MainContext);
+    const [getComments,setComments] = useState([])
+    const {index} = useParams()
+    const [loading,setLoading] = useState(false)
+    const [currentPage, setCurrentPage] = useState(1)
+    const postsPerPage = 10
     console.log(getThreadObject)
+
     useEffect(() => {
+        setLoading(true)
         async function getComments() {
 
 
@@ -32,6 +39,7 @@ const CommentViewPage = () => {
             console.log(data)
             if (data.success) {
                 setComments(data.allComments);
+                setLoading(false)
                 // window.scrollTo({top: 0, left: 0, behavior: "instant"});
             }
         }
@@ -50,6 +58,13 @@ const CommentViewPage = () => {
 
 
     }
+    // Get Current Comments
+    const indexOfLastPost = currentPage * postsPerPage
+    const indexOfFirstPost = indexOfLastPost - postsPerPage
+    const currentPosts = getComments.slice(indexOfFirstPost, indexOfLastPost)
+
+    // Change page
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
     return (
         <div className="mainDiv">
@@ -57,7 +72,7 @@ const CommentViewPage = () => {
                 <div>Route</div>
                 <div>Search</div>
             </div>
-            <h1>{getThreadObject.topic}</h1>
+            {/*<h1>{getThreadObject.topic}</h1>*/}
             {getUser ? ""
             :
                 <div className="createNewTopicDiv">
@@ -65,13 +80,16 @@ const CommentViewPage = () => {
                 </div>
             }
 
-            <div>{getComments &&
-                getComments.map((x,index) =>
-                    <div key={index}>
-                        <CommentCard item={x}/>
-                    </div>
-                )}
-            </div>
+            <AllComments comments={currentPosts} loading={loading}/>
+            <Pagination postsPerPage={postsPerPage} totalPosts={getComments.length} paginate={paginate}/>
+
+            {/*<div>{getComments &&*/}
+            {/*    getComments.map((x,index) =>*/}
+            {/*        <div key={index}>*/}
+            {/*            <CommentCard item={x}/>*/}
+            {/*        </div>*/}
+            {/*    )}*/}
+            {/*</div>*/}
           <div>
               {getUser &&
                   <div>

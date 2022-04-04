@@ -14,10 +14,10 @@ const ProfilePage = () => {
 
     const [modalShow, setModalShow] = React.useState(false);
  const [getMyComments, setMyComments] = useState()
+    const [getMyTopics, setMyTopics] = useState()
 
     useEffect(() => {
         async function getMyComments() {
-
             const options = {
                 method: "GET",
                 headers: {
@@ -38,7 +38,27 @@ const ProfilePage = () => {
         getMyComments();
     }, [])
 
+    useEffect(() => {
+        async function getMyTopics() {
+            const options = {
+                method: "GET",
+                headers: {
+                    "content-type" : "application.json"
+                },
+                credentials: "include",
 
+            }
+
+            const res = await fetch(`http://localhost:4000/getMyTopics/${getUser.email}`, options);
+            const data = await res.json();
+
+            if (data.success) {
+                setMyTopics(data.myTopics);
+                // window.scrollTo({top: 0, left: 0, behavior: "instant"});
+            }
+        }
+        getMyTopics();
+    }, [])
 
 
 
@@ -59,7 +79,15 @@ const ProfilePage = () => {
                     onHide={() => setModalShow(false)}
                 />
             </div>}
+            {getMyTopics && <h5>My Topics</h5>}
+            {getMyTopics && getMyTopics.map((x,i)=>
+                <div className="d-flex justify-content-between" key={i} >
+                    {/*<div onClick={() => goToTopic(i)} >*/}
+                    <TopicCard item={x}/>
+                    {/*</div>*/}
+                </div>
 
+            )}
             {getMyComments && <h5>My Comments</h5>}
             {getMyComments && getMyComments.map((x,i)=>
                 <div className="d-flex justify-content-between" key={i} >

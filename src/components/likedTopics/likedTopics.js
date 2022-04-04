@@ -4,6 +4,7 @@ import {BsSuitHeart, BsSuitHeartFill} from "react-icons/bs";
 
 const LikedTopics = () => {
 
+
     const [getFavorites, setFavorites] = useState([]);
     const [getCheckStorage, setCheckStorage] = useState(false)
 

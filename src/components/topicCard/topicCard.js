@@ -7,7 +7,7 @@ const TopicCard = ({item}) => {
         <div>
             <div className="d-flex">
                 <div>
-                    <img src={item.creator.profileImage}/>
+                    <img className="imgClass" src={item.creator.profileImage}/>
                 </div>
                 <div className="d-flex flex-column justify-content-between">
                     <div>

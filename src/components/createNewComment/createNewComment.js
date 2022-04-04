@@ -15,12 +15,71 @@ const CreateNewComment = ({index, setComment}) => {
     const {getUser, getThreadObject} = useContext(MainContext)
 
 
+    // let re = /http(?:s?):\/\/(?:www\.)?youtu(?:be\.com\/watch\?v=|\.be\/)([\w\-\_]*)(&(amp;)?[\w\?=]*)?/i;
+    // let img = /http[^\s]+(jpg|jpeg|png|tiff)(&(amp;)?[\w\?=]*)?/i;
+    // if( re.test("com dadadadad") ){
+    //     console.log("aaa")
+    // } else if (img.test(" dadadadad jpg")){
+    //     console.log("bbb")
+    // } else {
+    //     console.log("ccc")
+    // }
 
+
+//place in dive to show column
+  function testRegex(text){
+        let videoUrlRegex =/http(?:s?):\/\/(?:www\.)?youtu(?:be\.com\/watch\?v=|\.be\/)([\w\-\_]*)(&(amp;)?[\w\?=]*)?/i;
+        // let setEmbedVideo = /watch[^\s]v=/i
+        let imgUrlRegex =/http[^\s]+(jpg|jpeg|png|tiff)(&(amp;)?[\w\?=]*)?/i;
+        // if(videoUrlRegex.test(text)){
+            // if(embedVideo.test(text)){
+            // let test = text.replace(setEmbedVideo, 'embed/')
+            // }
+            // console.log(test)
+            if(videoUrlRegex.test(text)) {
+                return text.replace(videoUrlRegex, function(url) {
+                    return '<iframe id="ytplayer" type="text/html" width="420" height="345" src="' + url + '">' + url + '</iframe>';
+                });
+            // }
+            // return text.replace(videoUrlRegex, function(url) {
+            //     return '<iframe id="ytplayer" type="text/html" width="420" height="345" src="' + url + '">' + url + '</iframe>';
+            // });
+        } else if(imgUrlRegex.test(text)) {
+            return text.replace(imgUrlRegex, function (url) {
+                return '<img width="420" height="345" src="' + url + '"/>'
+            });
+        } else {
+                return text
+            }
+
+    }
+    // function testRegexImage(text){
+    //     let imgUrlRegex =/http[^\s]+(jpg|jpeg|png|tiff)(&(amp;)?[\w\?=]*)?/i;
+    //     return text.replace(urlRegex, function(url) {
+    //         return '<img width="420" height="345" src="' + url + '"/>'
+    //     });
+    // }
+
+function testEmbed(test){
+    let setEmbedVideo = /watch[^\s]v=/i
+    console.log(setEmbedVideo.test(test))
+    if(setEmbedVideo.test(test)){
+      return test.replace(setEmbedVideo, 'embed/')
+
+    }
+    // console.log(test)
+ return test
+}
 
     async function submitComment(){
 
+        let commentRegex = await testRegex(commentRef.current.value)
+        let embed = await testEmbed(commentRegex)
+
+        console.log(embed)
+
         const comment = {
-            comment : commentRef.current.value,
+            comment : embed,
             date : Date.now(),
             creator : getUser,
             index: index,
@@ -34,6 +93,7 @@ const CreateNewComment = ({index, setComment}) => {
                 setComment(res.allComments)
             }
             console.log(res)
+
             // if (!res.error) {
             //     setErrorMessage("");
             // } else {

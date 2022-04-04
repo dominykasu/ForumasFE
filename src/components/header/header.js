@@ -9,13 +9,18 @@ const Header = () => {
     function logout(){
         setUser(null)
     }
+
+
+
+
     return (
+
         <div className='d-flex justify-content-around mainHeaderDiv'>
             <div className='d-flex'>
+
                 <div>LOGO</div>
                 <Link to="/">Home</Link>
             </div>
-
             {getUser ?
                 <div className='d-flex'>
                     <div>
