@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import {useParams} from "react-router-dom";
 import {useEffect} from "react";
 import './style.css'
-import ThreadsCard from "../components/threadsCard/threadsCard";
+import TopicCard from "../components/topicCard/topicCard";
 import {Link} from "react-router-dom";
 import {useState} from "react";
 import TopicsCard from "../components/topicsCard/topicsCard";
@@ -13,10 +13,10 @@ import { BsSuitHeart, BsSuitHeartFill } from 'react-icons/bs';
 
 const ThreadViewPage = () => {
 
-    const {getUser} = useContext(MainContext);
+    const {getUser, setThreadObject, getThreadObject} = useContext(MainContext);
     const {index} = useParams()
 const [getAllTopics, setAllTopics] = useState(null)
-    const [getFavorites, setFavorites] = useState()
+    const [getFavorites, setFavorites] = useState([])
     const [getCheckStorage, setCheckStorage] = useState(false)
     const navigate = useNavigate()
 
@@ -40,9 +40,10 @@ const [getAllTopics, setAllTopics] = useState(null)
         getTopics();
     }, [])
 
-    function goToTopic(index){
-        console.log(index)
+    function goToTopic(index, event){
+
         navigate(`/topic/${index}`)
+        setThreadObject(event)
 
     }
     function newTopic(){
@@ -67,7 +68,9 @@ const [getAllTopics, setAllTopics] = useState(null)
     }
 
     useEffect(() => {
-        setFavorites(JSON.parse(localStorage.LikedTopic))
+        if (localStorage.getItem('LikedTopic') != null){
+            setFavorites(JSON.parse(localStorage.LikedTopic))
+        }
     },[getCheckStorage])
 
     // {!getFavorited ? (
@@ -102,8 +105,8 @@ const [getAllTopics, setAllTopics] = useState(null)
             <div>
                 {getAllTopics && getAllTopics.map((x,i)=>
                     <div className="d-flex justify-content-between" key={i} >
-                    <div onClick={() => goToTopic(i)} >
-                        <ThreadsCard item={x}/>
+                    <div onClick={() => goToTopic(i, x)} >
+                        <TopicCard item={x}/>
                     </div>
                     <div onClick={() => addToFavorites(x)}>
                         {getFavorites.find((y) => y._id === x._id) ?  <BsSuitHeartFill/> : <BsSuitHeart/>}

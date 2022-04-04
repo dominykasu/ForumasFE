@@ -12,7 +12,7 @@ const CreateNewComment = ({index, setComment}) => {
     const commentRef = useRef()
 
     console.log(index)
-    const {getUser} = useContext(MainContext)
+    const {getUser, getThreadObject} = useContext(MainContext)
 
 
 
@@ -22,10 +22,12 @@ const CreateNewComment = ({index, setComment}) => {
         const comment = {
             comment : commentRef.current.value,
             date : Date.now(),
-            creator : getUser.email,
-            index: index
-        };
+            creator : getUser,
+            index: index,
+            threadId: getThreadObject._id
 
+        };
+        console.log(comment)
         try {
             const res = await http.post(comment, "postComment");
             if(res.success){

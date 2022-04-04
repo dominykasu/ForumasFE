@@ -14,9 +14,9 @@ const CreateNewTopic = () => {
     const textRef = useRef()
     const navigate = useNavigate()
 
-    function submitAndNav() {
-        submitTopic()
-        navigateTo()
+   async function submitAndNav() {
+       await submitTopic()
+       await navigateTo()
         // console.log(index)
     }
 
@@ -27,7 +27,7 @@ const CreateNewTopic = () => {
            topic : topicRef.current.value,
            contentText : textRef.current.value,
            date : Date.now(),
-           creator : getUser.email,
+           creator : getUser,
            index : index
        };
 

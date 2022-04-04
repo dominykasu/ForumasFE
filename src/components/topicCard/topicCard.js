@@ -1,8 +1,8 @@
 import React from 'react';
 
-const CommentCard = ({item}) => {
-    console.log(item)
+const TopicCard = ({item}) => {
 
+    console.log(item)
     return (
         <div>
             <div className="d-flex">
@@ -11,7 +11,7 @@ const CommentCard = ({item}) => {
                 </div>
                 <div className="d-flex flex-column justify-content-between">
                     <div>
-                        <h5>{item.comment}</h5>
+                        <h5>{item.topic}</h5>
                     </div>
                     <div>
                         <div>
@@ -28,4 +28,4 @@ const CommentCard = ({item}) => {
     );
 };
 
-export default CommentCard;
+export default TopicCard;

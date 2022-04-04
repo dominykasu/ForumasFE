@@ -15,8 +15,12 @@ const Header = () => {
                 <div>LOGO</div>
                 <Link to="/">Home</Link>
             </div>
+
             {getUser ?
                 <div className='d-flex'>
+                    <div>
+                        <Link to="/likedTopics">Favorites</Link>
+                    </div>
                     <div>
                         <Link to="/profile">Profile</Link>
                     </div>
@@ -27,6 +31,9 @@ const Header = () => {
                 </div>
                 :
             <div className='d-flex'>
+                <div>
+                    <Link to="/likedTopics">Favorites</Link>
+                </div>
                 <div>
                     <Link to="/login">Log in</Link>
                 </div>

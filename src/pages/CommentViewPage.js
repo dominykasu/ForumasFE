@@ -1,6 +1,6 @@
 import React, {useContext, useEffect} from 'react';
 import {Link, useParams} from "react-router-dom";
-import ThreadsCard from "../components/threadsCard/threadsCard";
+import TopicCard from "../components/topicCard/topicCard";
 import './style.css'
 import {useRef} from "react";
 import CreateNewComment from "../components/createNewComment/createNewComment";
@@ -9,20 +9,25 @@ import CommentCard from "../components/commentCard/commentCard";
 import MainContext from "../context/userContext";
 
 const CommentViewPage = () => {
-    const {getUser} = useContext(MainContext);
+    const {getUser, getThreadObject} = useContext(MainContext);
     const [getComments,setComments] = useState(null)
     const {index} = useParams()
 
+    console.log(getThreadObject)
     useEffect(() => {
         async function getComments() {
+
+
+
             const options = {
                 method: "GET",
                 headers: {
                     "content-type" : "application.json"
                 },
-                credentials: "include"
+                credentials: "include",
+
             }
-            const res = await fetch("http://localhost:4000/getComments/" + index, options);
+            const res = await fetch(`http://localhost:4000/getComments/${index}/${getThreadObject._id}`, options);
             const data = await res.json();
             console.log(data)
             if (data.success) {
@@ -33,7 +38,7 @@ const CommentViewPage = () => {
         getComments();
     }, [])
 
-    function createComment(){
+    function createCommentButton(){
         const commentDiv = document.getElementById("hideComment")
         if(commentDiv.classList.contains("hideComment")){
             commentDiv.classList.remove("hideComment")
@@ -52,7 +57,7 @@ const CommentViewPage = () => {
                 <div>Route</div>
                 <div>Search</div>
             </div>
-            <h1>General Discussion</h1>
+            <h1>{getThreadObject.topic}</h1>
             {getUser ? ""
             :
                 <div className="createNewTopicDiv">
@@ -70,7 +75,7 @@ const CommentViewPage = () => {
           <div>
               {getUser &&
                   <div>
-              <div onClick={createComment}>Comment</div>
+              <div onClick={createCommentButton}>Comment</div>
                   <div className="hideComment" id="hideComment">
                   <CreateNewComment index={index} setComment={setComments}/>
                   </div>

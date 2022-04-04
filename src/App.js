@@ -12,10 +12,11 @@ import {useState} from "react";
 import ThreadViewPage from "./pages/ThreadViewPage";
 import CreateNewTopic from "./components/createNewTopic/createNewTopic";
 import CommentViewPage from "./pages/CommentViewPage";
+import LikedTopics from "./components/likedTopics/likedTopics";
 function App() {
 
   const [getUser, setUser] = useState(null);
-
+  const [getThreadObject, setThreadObject] = useState(null)
 
   return (
       <BrowserRouter>
@@ -23,7 +24,9 @@ function App() {
       <MainContext.Provider
           value={{
             getUser,
-            setUser
+            setUser,
+            setThreadObject,
+            getThreadObject,
           }}
       >
       <Header/>
@@ -34,6 +37,7 @@ function App() {
           <Route path='/profile' element={<ProfilePage />} />
           <Route path='/login' element={<LogInPage />} />
           <Route path='/register' element={<RegisterPage />} />
+          <Route path='/likedTopics' element={<LikedTopics />} />
           <Route path='/thread/:index' element={<ThreadViewPage />} />
           <Route path='/topic/:index' element={<CommentViewPage />} />
           <Route path='/createtopic/:index' element={<CreateNewTopic />} />
