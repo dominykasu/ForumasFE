@@ -15,11 +15,11 @@ const CreateNewComment = ({index, setComment}) => {
         let imgUrlRegex = /http[^\s]+(jpg|jpeg|png|tiff)(&(amp;)?[\w\?=]*)?/i;
         if (videoUrlRegex.test(text)) {
             return text.replace(videoUrlRegex, function (url) {
-                return '<iframe id="ytplayer" type="text/html" width="420" height="345" src="' + url + '">' + url + '</iframe>';
+                return '<div><iframe id="ytplayer" type="text/html" width="420" height="345" src="' + url + '">' + url + '</iframe></div>';
             });
         } else if (imgUrlRegex.test(text)) {
             return text.replace(imgUrlRegex, function (url) {
-                return '<img width="420" height="345" src="' + url + '"/>'
+                return '<div><img width="420" height="345" src="' + url + '"/></div>'
             });
         } else {
             return text
