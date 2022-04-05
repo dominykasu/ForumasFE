@@ -56,6 +56,8 @@ const CreateNewComment = ({index, setComment}) => {
                 setComment(res.allComments)
                 const commentDiv = document.getElementById("hideComment")
                 commentDiv.classList.add("hideComment")
+                const inputField = document.getElementById("clearField")
+                inputField.value = ""
             }
 
 
@@ -75,12 +77,12 @@ const CreateNewComment = ({index, setComment}) => {
             <div className="d-flex flex-column">
                 <div className="d-flex align-items-center justify-content-center">
                     <form>
-                    <textarea ref={commentRef} className="form-control inputHeight">
+                    <textarea ref={commentRef} className="form-control inputHeight" id="clearField">
                     </textarea>
                     </form>
                 </div>
                 <div className="text-center">
-                    <button type="button" class="btn btn-dark" onClick={submitComment}>Submit Comment</button>
+                    <button type="button" className="btn btn-dark" onClick={submitComment}>Submit Comment</button>
                 </div>
                 {errorMessage && (
                     <div className="text-center mt-3">
