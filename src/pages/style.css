@@ -1,23 +1,76 @@
 .mainDiv {
-    width:70vw;
-    height:80vh;
-    margin:auto;
-    overflow: scroll;
+    width: 70vw;
+    height: 80vh;
+    margin: auto;
+    overflow: auto;
     overflow-x: hidden;
-    background-color: white;
+    background-color: #000000;
+    color: #ffffff;
 }
+
+.mainDiv::-webkit-scrollbar {
+    width: 8px;
+}
+
+.mainDiv::-webkit-scrollbar-track {
+    background: #000000;
+    border: 1px solid #737373;
+    border-radius: 5px;
+}
+
+.mainDiv::-webkit-scrollbar-thumb {
+    background-color: #6c6c6c;
+    border-radius: 5px;
+}
+
 .createNewTopicDiv {
     background-color: #2f2f2f;
-    padding:3px;
+    padding: 3px;
 }
+
 .newTopicButtonDiv {
-    color:white;
-    margin:auto;
-    border: 1px solid red;
+    color: white;
+    margin: auto;
+    padding: 0 0 0 5px;
+    /*border: 1px solid red;*/
 }
+
 .hideComment {
-    display:none;
+    display: none;
 }
+
 .changePictureButton:focus {
-    box-shadow: none!important;
+    box-shadow: none !important;
+}
+
+.addBorder {
+    border: 1px solid goldenrod;
+}
+
+.test2 {
+    background-color: #1c1c1c !important;
+    color: white !important;
+}
+
+.test2:hover {
+    background-color: #333333 !important;
+    cursor: pointer;
+}
+
+.threadName {
+    margin: 5px 0 0 7px;
+    color: #757575;
+}
+
+.commentButtonMargin {
+    margin: 0 0 10px 0;
+}
+
+.profilePageUserDiv {
+    margin: 10px 0 5px 10px;
+}
+
+.profilePageUserImgDiv {
+    max-width: 20vw;
+    min-width: 120px;
 }

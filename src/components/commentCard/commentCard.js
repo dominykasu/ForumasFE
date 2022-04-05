@@ -1,36 +1,32 @@
 import React from 'react';
-// ES Modules
 import parse from 'html-react-parser';
+import './style.css'
 
-// CommonJS
-// const parse = require('html-react-parser');
 const CommentCard = ({item}) => {
 
     const comment = parse(item.comment)
-    console.log(comment, "aa")
+
     return (
-        <div>
+        <div className="userCommentInfoDiv">
             <div className="d-flex">
-                <div>
-                    <img src={item.creator.profileImage}/>
-                </div>
-                <div className="d-flex flex-column justify-content-between">
-                    <div>
-                        <h5>{comment}</h5>
+                <div className="userInfoDiv">
+                    <div className="imgClassCommentMargin">
+                        <img className="imgClass imgClassCommentMargin" src={item.creator.profileImage}/>
                     </div>
-                    <div>
-                        <div>
+                    <div className="fontSize text-center">
+                        <div className="text-muted">
                             {item.creator.email}
                         </div>
-                        <div>
-                            {item.date}
+                        <div className="text-muted">
+                            {new Date(item.date).toLocaleString('en-US')}
                         </div>
                     </div>
                 </div>
+                <p className="commentCardP" style={{"fontSize": "14px", "margin": "5px 0 5px 0"}}>{comment}</p>
             </div>
-
         </div>
     );
 };
 
 export default CommentCard;
+

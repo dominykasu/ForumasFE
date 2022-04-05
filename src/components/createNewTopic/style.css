@@ -1,5 +1,6 @@
 .inputHeight {
+    margin: 10px 5px 10px 5px;
+    width: 50vw !important;
     height: 20vh;
-    width:50vw;
-    margin:10px;
+
 }

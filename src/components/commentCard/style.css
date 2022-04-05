@@ -1,0 +1,16 @@
+.imgClassCommentMargin {
+    text-align: center;
+}
+
+.userCommentInfoDiv {
+    margin: 10px;
+    background-color: #2f2f2f;
+
+}
+
+.userInfoDiv {
+    margin: 5px 10px 5px 5px;
+}
+.commentCardP {
+    width:60vw;
+}

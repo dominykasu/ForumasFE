@@ -2,36 +2,27 @@ import {Button, Modal} from "react-bootstrap";
 import http from "../../plugins/http";
 import MainContext from "../../context/userContext";
 import {useContext, useRef} from "react";
+
 function MyVerticallyCenteredModal(props) {
     const {getUser, setUser} = useContext(MainContext)
     const pictureRef = useRef()
 
-    async  function setPicture(){
+    async function setPicture() {
 
+        const picture = {
+            profileImage: pictureRef.current.value,
+            email: getUser.email,
 
-            const picture = {
-                profileImage : pictureRef.current.value,
-                email : getUser.email,
-
-            };
-        console.log(picture)
-            try {
-                const res = await http.post(picture, "updatePicture");
-                if(res.success){
-                    setUser(res.updatedUser)
-                }
-
-                // if (!res.error) {
-                //     setErrorMessage("");
-                // } else {
-                //     setErrorMessage(res.message);
-                // }
-            } catch (error) {
-                console.log(error);
+        };
+        try {
+            const res = await http.post(picture, "updatePicture");
+            if (res.success) {
+                setUser(res.updatedUser)
             }
+        } catch (error) {
 
         }
-
+    }
 
     return (
         <Modal
@@ -48,7 +39,7 @@ function MyVerticallyCenteredModal(props) {
             <Modal.Body>
                 <h4>Picture link</h4>
                 <p>
-                    <input  ref={pictureRef} placeholder="link"/>
+                    <input ref={pictureRef} placeholder="link"/>
                 </p>
             </Modal.Body>
             <Modal.Footer>
@@ -58,4 +49,5 @@ function MyVerticallyCenteredModal(props) {
         </Modal>
     );
 }
+
 export default MyVerticallyCenteredModal
